@@ -1,4 +1,8 @@
 
+
+
+
+
 #
 # This is the user-interface definition of a Shiny web application. You can
 # run the application by clicking 'Run App' above.
@@ -31,25 +35,35 @@ require(stringr)
 
 #shiny::runApp(display.mode="showcase")
 
+
+
+
+
+
+
 shinyUI(fluidPage(
-  
   # Application title
   
   titlePanel("Testando APP"),
   
-  "testando", strong("Transectos"),
+  "testando",
+  strong("Transectos"),
   
   sidebarLayout(
-    
     sidebarPanel(
+      # Diretorio
       
-      # Diretorio 
-      
-      textInput("diretorioInput", "Diretorio raiz", value = "", width = NULL,
-                placeholder = NULL),
+      textInput(
+        "diretorioInput",
+        "Diretorio raiz",
+        value = "",
+        width = NULL,
+        placeholder = NULL
+      ),
       
       "Selecionar do diretorio raiz, como em C:/*/CSV",
-      br(),br(),
+      br(),
+      br(),
       "* = dieretorio",
       
       
@@ -58,11 +72,22 @@ shinyUI(fluidPage(
       uiOutput("transectoOutput"),
       
       
-      textInput("diretorioSHP", "Diretorio shp", value = "/qgis/finalizados/", width = NULL,
-                placeholder = NULL),
       
-      textInput("arquivoSHP", "Arquivo shp", value = "planilha", width = NULL,
-                placeholder = NULL),
+      textInput(
+        "diretorioSHP",
+        "Diretorio shp",
+        value = "/qgis/finalizados/",
+        width = NULL,
+        placeholder = NULL
+      ),
+      
+      textInput(
+        "arquivoSHP",
+        "Arquivo shp",
+        value = "planilha",
+        width = NULL,
+        placeholder = NULL
+      ),
       
       # Percentil
       
@@ -78,8 +103,13 @@ shinyUI(fluidPage(
       
       #  Maximo e minimo X do grafico
       
-      sliderInput("xInput", "Eixo Horizontal", min = 0, max = 100,
-                  value = c(0,100)),
+      sliderInput(
+        "xInput",
+        "Eixo Horizontal",
+        min = 0,
+        max = 100,
+        value = c(0, 100)
+      ),
       
       # inserir valores de limites superiores e inferiores
       
@@ -89,10 +119,10 @@ shinyUI(fluidPage(
       
     ),
     
-    mainPanel(
-      
-      plotOutput("KdeRipley")
-      
-    )
+    mainPanel(plotOutput("KdeRipley"))
   )
 ))
+# dsad
+# 
+# asd
+
