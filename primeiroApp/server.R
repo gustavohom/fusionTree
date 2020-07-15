@@ -14,7 +14,18 @@ require(stringr)
 
 # Inicio do serve
 
+#' Title
+#'
+#' @param input 
+#' @param output 
+#' @param session 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 shinyServer(function(input, output, session) {
+  
   #   ### Quando o processo é automatizado desde o inicio, com o processo
   #   ### automatico, a nuvem de pontos deve estar na pasta las e o arquivo csv
   #   ### na pasta csv.  Os nomes foram padronizados nas etapas anteriores
@@ -55,11 +66,36 @@ shinyServer(function(input, output, session) {
   })
   
   
+  # Definindo Lat Long dos pontos na planilha
+  
+  # Longetude
+  
+  output$coordTreeOutputX <- renderUI({
+    if (input$autoProcess) {
+      textInput("coordTreeX", "Longetude Automatica", value = "X")
+
+    } else{
+      textInput("coordTreeX", "Longetude Manual", value = "Longetude")
+    }
+  })
+
+  # # Latitude
+
+  output$coordTreeOutputY <- renderUI({
+    if (input$autoProcess) {
+      textInput("coordTreeY", "Latitude Automatica", value = "Y")
+
+    } else{
+      textInput("coordTreeY", "Latitude Manual", value = "Latitude")
+    }
+  })
+  
   
   # Calculo da funcao K de Ripley
   
   
   KdeRipley_ <- eventReactive(input$go, {
+    
     diretorio <- input$diretorioInput
     
     
@@ -118,9 +154,24 @@ shinyServer(function(input, output, session) {
     # Criando poligono com extenções
     
     # Definir oque serão eixos X e Y
+    #-----------------------------------
+    
+    
+    
+    
     #---------------------------------
     
-    coordinates(PPP) = ~ X + Y
+    if (input$autoProcess) {
+      
+      coordinates(PPP) = ~ X + Y
+      
+    } else{
+
+      coordinates(PPP) = c(input$coordTreeX , input$coordTreeY)
+    }
+    
+    #------------------------
+   
     
     # criando windows apartir de shp
     
@@ -144,9 +195,16 @@ shinyServer(function(input, output, session) {
     
     # criando ppp
     
-    p <- ppp(PPP$X, PPP$Y, window = W)
     
-    plot(p)
+    # if (input$autoProcess) {
+      
+      p <- ppp(PPP$X, PPP$Y, window = W)
+      
+    # } else{
+    #   
+    #   p <- ppp(PPP$X_descartPossibi21543, PPP$Y_descartPossibi21543, window = W)
+    # }
+
     
     # K test e K test envelopado
     

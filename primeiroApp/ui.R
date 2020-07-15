@@ -63,6 +63,9 @@ shinyUI(
         # Selecionar transectos com identificacao automatica de nome
         
         uiOutput("transectoOutput"),
+        uiOutput("coordTreeOutputX"),
+        uiOutput("coordTreeOutputY"),
+        uiOutput("teste"),
         
         
         # Selecionar diretorio do shp
